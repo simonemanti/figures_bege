@@ -12,6 +12,7 @@ from rcparams import plotter, textwidth, columnwidth
 
 @plotter()
 def main():
+    np.random.seed(42)
     
     n_channels = 1024
     sampling_rate = 400e6  # Hz
@@ -33,21 +34,26 @@ def main():
     pile_up = pile_ups[np.random.choice(len(pile_ups))]
     flat_top = flat_tops[np.random.choice(len(flat_tops))]
     
-    fig, axes = plt.subplots(figsize=(textwidth,textwidth*0.6), nrows=2, ncols=2, dpi=130, sharex=True)
+    fig, axes = plt.subplots(figsize=(textwidth,textwidth*0.7), nrows=2, ncols=2, dpi=130, sharex=False)
 
     ax = axes[0,0]
-    ax.plot(t_n, nominal_pulse, color='black')
-    ax.set_ylabel('Amplitude (A.U.)')
-    ax.set_xlabel('Time (µs)')
+    ax.plot(t_n, nominal_pulse, color='C2')
 
     ax = axes[0,1]
-    ax.plot(t_n, slow_rise, color='black')
+    ax.plot(t_n, slow_rise, color='C3')
 
     ax = axes[1,0]
-    ax.plot(t_n, pile_up, color='black')
+    ax.plot(t_n, pile_up, color='C3')
 
     ax = axes[1,1]
-    ax.plot(t_n, flat_top, color='black')
+    ax.plot(t_n, flat_top, color='C3')
+
+    labels = ['a)', 'b)', 'c)', 'd)']
+    for ax, label in zip(axes.flatten(), labels):
+        ax.text(0.02, 0.95, label, transform=ax.transAxes, fontsize=10, fontweight='normal', va='top', ha='left')
+        ax.set_ylabel('Amplitude [A.U.]')
+        ax.set_xlabel('Time [µs]')
+        ax.set_xlim(0, 2.5)
 
     plt.tight_layout()
     plt.savefig(f'{os.path.basename(os.getcwd())}.png',  bbox_inches = 'tight', pad_inches = 0.1, dpi=300)

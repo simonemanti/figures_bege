@@ -13,7 +13,7 @@ from rcparams import plotter, textwidth, columnwidth
 @plotter()
 def main():
     
-    with open('../../processed_data/2021/denoise_data21_v2.pkl', 'rb') as f:
+    with open('../../denoise_data21_v6.pkl', 'rb') as f:
         df21 = pickle.load(f)
 
     i=6747
@@ -24,7 +24,7 @@ def main():
 
     *tfwhm, fwhmNorm = pulse.find_peak_fwhm_time(type='fwhm', return_norm=True) # tfwhm has the same arguments as trise
 
-    fig, axes = plt.subplots(figsize=(textwidth,textwidth*0.6), nrows=1, ncols=2, dpi=130)
+    fig, axes = plt.subplots(figsize=(textwidth,textwidth*0.4), nrows=1, ncols=2, dpi=130)
 
     ax = axes[0]
     ax.plot(pulse.time, pulse.data, color='black')
@@ -34,8 +34,8 @@ def main():
     
     ax.plot(pulse.time[rise_mask], pulse.data[rise_mask], color='red', linewidth=2, label='Rise Time')
     # ax.plot(pulse.time[fwhm_mask], pulse.data[fwhm_mask], color='green', linewidth=2, label='FWHM Time')
-    ax.set_ylabel('Amplitude (A.U.)')
-    ax.set_xlabel('Time (µs)')
+    ax.set_ylabel('Amplitude [A.U.]')
+    ax.set_xlabel('Time [µs]')
     ax.legend()
 
     ax=axes[1]
@@ -45,7 +45,7 @@ def main():
     i_max = np.argmax(recon_deriv)
     ax.plot(pulse.time[i_max], recon_deriv[i_max], 'rx', label='Detected Peak')
     
-    ax.set_xlabel('Time (µs)')
+    ax.set_xlabel('Time [µs]')
     ax.legend()
     
 

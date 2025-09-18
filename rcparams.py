@@ -12,8 +12,7 @@ pgf_with_latex = {
         #    r"\usepackage{tgheros}",
         #    r"\usepackage[T1]{fontenc}"
         #    ],
-        "font.size": 8,
-        "axes.labelsize": 8,
+        "axes.labelsize": 9,
         "legend.fontsize": 7,
         "xtick.labelsize": 8,
         "ytick.labelsize": 8,
@@ -25,7 +24,13 @@ pgf_with_latex = {
         "ytick.minor.width": 0.5,
         "lines.markersize": 4,
         "lines.markeredgewidth": 0.5,
-        "lines.linewidth": 1.0,
+        "lines.linewidth": 1.2,
+        "axes.grid": True,
+        "grid.linestyle": ":",
+        "grid.alpha": 0.5,
+        # "grid.color": "k",
+        # "grid.linewidth": 1,
+        "axes.axisbelow": True,
         }
 
 # Provide rcParams for imports

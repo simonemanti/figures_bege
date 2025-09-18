@@ -16,19 +16,45 @@ def main():
         data = pickle.load(f)
         fpr = data['fpr']
         tpr = data['tpr']
+        f1s = data['f1s']
+        thresholds = data['thresholds_pr']
+        best_thresh = data['best_thresh']
+
+    print(data.keys())
+
+    fig, axes = plt.subplots(figsize=(textwidth,textwidth*0.437), nrows=1, ncols=2, dpi=150)
     
-    fig, ax = plt.subplots(figsize=(textwidth,textwidth*0.6), nrows=1, ncols=1, dpi=130)
-    
+    ax = axes[0]
     ix = (tpr - fpr).argmax() if hasattr(tpr, 'argmax') else (tpr - fpr).index(max(tpr - fpr))
-    ax.plot(fpr, tpr, color='black', label=f'ROC curve (AUC = 0.999)')
-    ax.scatter(fpr[ix], tpr[ix], s=50, label='Threshold')
+
+    ax.plot([0, 1], [0, 1], linestyle='--', color='gray', alpha=0.5)
+    ax.plot(fpr, tpr, color='C0', label=f'CNN (AUC=0.99)', zorder=1)
+    ax.scatter(fpr[ix], tpr[ix], s=10, color='crimson', label='Threshold', zorder=2)
 
     ax.set_xlabel('FPR')
     ax.set_ylabel('TPR')
-    ax.legend()
+
+    ax = axes[1]
+
+    ax.axvline(best_thresh, color='crimson', linestyle='--', alpha=1)
+    ax.plot(thresholds, f1s, color='C0')
+
+    ax.set_xlabel('Threshold')
+    ax.set_ylabel('Metric')
+
+    # collect handles & labels from all axes
+    handles, labels = [], []
+    for ax in axes:
+        h, l = ax.get_legend_handles_labels()
+        handles.extend(h)
+        labels.extend(l)
+
+    # now make the legend only for items with labels
+    fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 1.0), ncol=2)
 
     plt.tight_layout()
-    plt.savefig(f'{os.path.basename(os.getcwd())}.png',  bbox_inches = 'tight', pad_inches = 0.1, dpi=300)
+    plt.subplots_adjust(top=0.875)
+    plt.savefig(f'{os.path.basename(os.getcwd())}.png', dpi=300)
     plt.savefig(f'{os.path.basename(os.getcwd())}.pdf')
     plt.show()
 
