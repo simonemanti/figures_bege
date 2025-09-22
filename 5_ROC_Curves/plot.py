@@ -28,7 +28,7 @@ def main():
     ix = (tpr - fpr).argmax() if hasattr(tpr, 'argmax') else (tpr - fpr).index(max(tpr - fpr))
 
     ax.plot([0, 1], [0, 1], linestyle='--', color='gray', alpha=0.5)
-    ax.plot(fpr, tpr, color='C0', label=f'CNN (AUC=0.99)', zorder=1)
+    ax.plot(fpr, tpr, color='k', label=f'CNN (AUC=0.99)', zorder=1)
     ax.scatter(fpr[ix], tpr[ix], s=10, color='crimson', label='Threshold', zorder=2)
 
     ax.set_xlabel('FPR')
@@ -37,10 +37,10 @@ def main():
     ax = axes[1]
 
     ax.axvline(best_thresh, color='crimson', linestyle='--', alpha=1)
-    ax.plot(thresholds, f1s, color='C0')
+    ax.plot(thresholds, f1s, color='k')
 
     ax.set_xlabel('Threshold')
-    ax.set_ylabel('Metric')
+    ax.set_ylabel('F1-Score')
 
     # collect handles & labels from all axes
     handles, labels = [], []

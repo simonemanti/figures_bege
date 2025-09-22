@@ -16,7 +16,7 @@ def main():
     dt = 1 / sampling_rate
     t_n = np.arange(n_channels) * dt * 1e6
     
-    with open('../../denoise_data21_v6.pkl', 'rb') as f:
+    with open('../../denoise_data21_v2.pkl', 'rb') as f:
         df21 = pickle.load(f)
     
     i = 6747
@@ -26,23 +26,25 @@ def main():
     
     fig, axes = plt.subplots(figsize=(textwidth, textwidth*0.437), nrows=1, ncols=2, dpi=130)
     
-    axes[0].plot(t_n[:-100], ori_pulse, label='Original', c='C0')
-    axes[0].plot(t_n[:-100], recon, label='Reconstructed', color='C1')
+    axes[0].plot(t_n[:-100], ori_pulse, label='Original', c='C3')
+    axes[0].plot(t_n[:-100], recon, label='Reconstructed', color='C2')
     axes[0].grid(ls=':')
     
-    axes[1].plot(t_n[:-100], Pulse(ori_pulse).normalize_deriv(), c='C0')
-    axes[1].plot(t_n[:-100], recon_deriv, color='C1')
+    axes[1].plot(t_n[:-100], Pulse(ori_pulse).normalize_deriv(), c='C3')
+    axes[1].plot(t_n[:-100], recon_deriv, color='C2')
     axes[1].grid(ls=':')
     
+    i_max = np.argmax(recon_deriv)
+
     for ax in axes:
         ax.set_ylabel('Amplitude [A.U.]')
         ax.set_xlabel('Time [µs]')
-        ax.set_xlim(0, 2.5)
+        ax.set_xlim(0, 2)#t_n[i_max]*4)
     
     fig.legend(['Original', 'Reconstructed'], loc='upper center', bbox_to_anchor=(0.5, 1.0), ncol=2)
     
     plt.tight_layout()
-    plt.subplots_adjust(top=0.80)
+    plt.subplots_adjust(top=0.85)
     plt.savefig(f'{os.path.basename(os.getcwd())}.png', bbox_inches='tight', pad_inches=0.1, dpi=300)
     plt.savefig(f'{os.path.basename(os.getcwd())}.pdf')
     plt.show()

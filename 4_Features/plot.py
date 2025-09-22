@@ -13,8 +13,10 @@ from rcparams import plotter, textwidth, columnwidth
 @plotter()
 def main():
     
-    with open('../../denoise_data21_v6.pkl', 'rb') as f:
+    with open('../../denoise_data21_v2.pkl', 'rb') as f:
         df21 = pickle.load(f)
+
+    print(df21.columns)
 
     i=6747
     recon_pulse = df21.iloc[i]['recon_pulse']
@@ -34,9 +36,6 @@ def main():
     
     ax.plot(pulse.time[rise_mask], pulse.data[rise_mask], color='red', linewidth=2, label='Rise Time')
     # ax.plot(pulse.time[fwhm_mask], pulse.data[fwhm_mask], color='green', linewidth=2, label='FWHM Time')
-    ax.set_ylabel('Amplitude [A.U.]')
-    ax.set_xlabel('Time [µs]')
-    ax.legend()
 
     ax=axes[1]
     ax.plot(pulse.time, recon_deriv, color='black')
@@ -45,9 +44,13 @@ def main():
     i_max = np.argmax(recon_deriv)
     ax.plot(pulse.time[i_max], recon_deriv[i_max], 'rx', label='Detected Peak')
     
-    ax.set_xlabel('Time [µs]')
-    ax.legend()
+    for ax in axes:
+        ax.set_ylabel('Amplitude [A.U.]')
+        ax.set_xlabel('Time [µs]')
+        ax.set_xlim(0, pulse.time[i_max]*2)
+        ax.legend(loc='upper left')
     
+    print(pulse.time[-1])
 
     plt.tight_layout()
     plt.savefig(f'{os.path.basename(os.getcwd())}.png',  bbox_inches = 'tight', pad_inches = 0.1, dpi=300)
