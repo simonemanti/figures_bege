@@ -49,8 +49,10 @@ def main():
     ax.plot(t_n, flat_top, color='C3')
 
     labels = ['a)', 'b)', 'c)', 'd)']
-    for ax, label in zip(axes.flatten(), labels):
-        ax.text(0.02, 0.95, label, transform=ax.transAxes, fontsize=10, fontweight='normal', va='top', ha='left')
+    titles = ['Normal','Multi-Sites','Slow-Rise','Flat-Top']
+    for n, ax in enumerate(axes.flatten()):
+        ax.text(0.02, 0.95, labels[n], transform=ax.transAxes, fontsize=10, fontweight='normal', va='top', ha='left')
+        ax.set_title(titles[n])
         ax.set_ylabel('Amplitude [A.U.]')
         ax.set_xlabel('Time [µs]')
         ax.set_xlim(0, 2.5)

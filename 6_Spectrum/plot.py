@@ -55,7 +55,7 @@ def plot_spectrum_comparison(ax, total, good, bad):
     ax.plot([],[], c='r', label='Bad')
 
     ax.set_xlim(0, 650)
-    ax.set_ylim(0, 200)
+    ax.set_ylim(0, 300)
     ax.set_xlabel('Energy [keV]')
     ax.set_ylabel('Counts / 1 keV')
     ax.legend()
@@ -92,7 +92,7 @@ def plot_fitted_spectrum_with_pull(ax_main, ax_pull, spectrum):
     # add_peak_annotations(ax_main, params, cov, peak_info)
     
     ax_main.set_xlim(0, 650)
-    ax_main.set_ylim(0, 200)
+    ax_main.set_ylim(0, 300)
     ax_main.set_ylabel('Counts / 1 keV')
     ax_main.legend(loc='upper right')
     ax_main.xaxis.set_major_locator(ticker.MultipleLocator(100))
