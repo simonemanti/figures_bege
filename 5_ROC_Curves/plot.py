@@ -31,8 +31,8 @@ def main():
     ax.plot(fpr, tpr, color='k', label=f'CNN (AUC=0.99)', zorder=1)
     ax.scatter(fpr[ix], tpr[ix], s=10, color='crimson', label='Threshold', zorder=2)
 
-    ax.set_xlabel('FPR')
-    ax.set_ylabel('TPR')
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
 
     ax = axes[1]
 
