@@ -14,7 +14,7 @@ from rcparams import plotter, textwidth, columnwidth
 @plotter()
 def main():
     
-    with open('../../processed_data/2021/denoise_data21_v2.pkl', 'rb') as f:
+    with open('../../denoise_data21_v2.pkl', 'rb') as f:
         df21 = pickle.load(f)
 
     # =============== Rise Time ===============

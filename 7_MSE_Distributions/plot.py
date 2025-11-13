@@ -13,7 +13,7 @@ from rcparams import plotter, textwidth, columnwidth
 @plotter()
 def main():
     
-    with open("../../processed_data/2021/DAE_mse_sampleVSdata.pkl", "rb") as f:
+    with open("../../DAE_mse_sampleVSdata.pkl", "rb") as f:
         y_pred, Y_val_clean_norm, norm21, recon21 = pickle.load(f)
 
 
