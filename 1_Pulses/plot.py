@@ -39,17 +39,17 @@ def main():
     ax = axes[0,0]
     ax.plot(t_n, nominal_pulse, color='C2')
 
-    ax = axes[0,1]
+    ax = axes[1,0]
     ax.plot(t_n, slow_rise, color='C3')
 
-    ax = axes[1,0]
+    ax = axes[0,1]
     ax.plot(t_n, pile_up, color='C3')
 
     ax = axes[1,1]
     ax.plot(t_n, flat_top, color='C3')
 
     labels = ['a)', 'b)', 'c)', 'd)']
-    titles = ['Normal','Multi-Sites','Slow-Rise','Flat-Top']
+    titles = ['Single-Site Pulse', 'Multi-Sites Pulse','Slow-Rise Pulse','Flat-Top (Saturated) Pulse']
     for n, ax in enumerate(axes.flatten()):
         ax.text(0.02, 0.95, labels[n], transform=ax.transAxes, fontsize=10, fontweight='normal', va='top', ha='left')
         ax.set_title(titles[n])
